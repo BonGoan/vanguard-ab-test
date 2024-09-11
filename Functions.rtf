@@ -1,0 +1,46 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 def error_rate(df):\
+    """calculate the error rate based on process_step column"""\
+    df['process_step_number'] = df['process_step'].replace(\{'start': 0, 'step_1': 1,'step_2': 2,'step_3': 3,'confirm': 4\})\
+    df['step_diff'] = df.groupby('visit_id')['process_step_number'].diff(-1)\
+    count_visits_with_error = df[df['step_diff'] < 0]['step_diff'].count()\
+    error_visits_rate = count_visits_with_error / df.visit_id.count()\
+    return error_visits_rate\
+\
+def calculate_errors_and_visits(df):\
+    """Calculating errors and visits to proceed with z-test"""\
+    df['process_step_number'] = df['process_step'].replace(\{'start': 0, 'step_1': 1,'step_2': 2,'step_3': 3,'confirm': 4\})\
+    df['step_diff'] = df.groupby('visit_id')['process_step_number'].diff(-1)\
+    count_errors = df[df['step_diff'] < 0]['step_diff'].count()\
+    total_visits = df['visit_id'].nunique()  # Number of unique visits\
+    return count_errors, total_visits\
+\
+def total_duration(df):\
+    """ calculate total duration from first start step to last confirm step"""\
+    df = df.sort_values(by=['visit_id', 'date_time'], ascending=[True, True])\
+    df['date_time'] = pd.to_datetime(df['date_time'],infer_datetime_format=True)\
+    #Filtering out the rows with no 'start' or 'confirm' step\
+    df_start_confirm_time = df[(df['process_step'] == 'start') | (df['process_step'] == 'confirm')]\
+    #Keeping the first timestamp on start and the last timestamp on confirm steps\
+    earliest_start = df_start_confirm_time[df_start_confirm_time['process_step'] == 'start'].groupby('visit_id').first()\
+    latest_confirm = df_start_confirm_time[df_start_confirm_time['process_step'] == 'confirm'].groupby('visit_id').last()\
+    #merging the datasets to have earliest start and lastest confirm together\
+    df_result = pd.merge(earliest_start, latest_confirm, on='visit_id', suffixes=('_start', '_confirm'))\
+    #calculating the total duration\
+    df_result['total_duration'] = df_result['date_time_confirm'] - df_result['date_time_start']\
+    #removing negative values considered as errors\
+    df_result = df_result[df_result['total_duration']> '0 days 00:00:00']\
+    #removing outliers using the IQR technique\
+    Q1 = np.percentile(df_result['total_duration'], 25)\
+    Q3 = np.percentile(df_result['total_duration'], 75)\
+    IQR = Q3 - Q1\
+    upper = Q3+1.5*IQR\
+    lower = Q1-1.5*IQR\
+    df_result = df_result[(df_result['total_duration']> lower) & (df_result['total_duration']< upper)]\
+    return df_result}
