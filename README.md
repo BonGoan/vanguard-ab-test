@@ -2,7 +2,8 @@
 
 Vanguard believed that a more intuitive and modern User Interface (UI), coupled with timely in-context prompts (cues, messages, hints, or instructions provided to users directly within the context of their current task or action), could make the online process smoother for clients. The critical question is: Would these changes encourage more clients to complete the process?
 
-## An A/B test was set into motion from 3/15/2017 to 6/20/2017 by the team.
+## A/B Testing
+An A/B test was set into motion from 3/15/2017 to 6/20/2017 by the team.
 Control Group: Clients interacted with Vanguard’s traditional online process.
 Test Group: Clients experienced the new, spruced-up digital interface.
 Both groups navigated through an identical process sequence: an initial page, three subsequent steps, and finally, a confirmation page signaling process completion.
@@ -25,10 +26,18 @@ The goal is to see if the new design leads to a better user experience and highe
 2. Time Spent on Each Step: t-test
 
 3. Error Rates: The new design (Test group) has a higher Error rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test with the following hypothesis:
+
 H0 = error rate test group <= error rate control group
 H1 = error rate test group > error rate control group
 The null hypothesis is rejected. The error rate in the test group is larger than the control group.
 
+5. Time Spent from Start to Confirm Step (additional KPI): Total time spent from start page to confirm page for one visit_id per client_id. 
+For each visit_id, we take the earliest 'start' and the last 'confirm'. If a visit has no start or confirm we can ignore them.
+Visits going to a confirm step before a start step will be ignored and considered as errors.
 
-5. Time Spent from Start to Confirm Step (additional KPI):
+When calculating the total duration, we removed negative values considered as errors and removed outliers using the IQR technique.
+The average total duration for the Control group is slightly higher than the Test group. In order to confirm if this difference is statistically significant, we proceeded with a t-test with the follwing hypothesis:
+H0 = average_total_duration_test_group <= average_total_duration_control_group
+H1 = average_total_duration_test_group > average_total_duration_control_group
 
+The null hypothesis is rejected. The control group spends less total time on average than the test group.
