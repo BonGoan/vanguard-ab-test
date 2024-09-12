@@ -29,8 +29,8 @@ The new design (Test group) has a higher completion rate compared to the old des
 ### 3. Error Rates:
 The new design (Test group) has a higher Error rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test with the following hypothesis:
 
-  H0 = error rate test group <= error rate control group
-  H1 = error rate test group > error rate control group
+H0 = error rate test group <= error rate control group;
+H1 = error rate test group > error rate control group
 
 The null hypothesis is rejected. The error rate in the test group is larger than the control group.
 
@@ -42,8 +42,8 @@ Visits going to a confirm step before a start step will be ignored and considere
 When calculating the total duration, we removed negative values considered as errors and removed outliers using the IQR technique.
 The average total duration for the Control group is slightly higher than the Test group. In order to confirm if this difference is statistically significant, we proceeded with a t-test with the follwing hypothesis:
 
-  H0 = average_total_duration_test_group <= average_total_duration_control_group
-  H1 = average_total_duration_test_group > average_total_duration_control_group
+H0 = average_total_duration_test_group <= average_total_duration_control_group;
+H1 = average_total_duration_test_group > average_total_duration_control_group
 
 The null hypothesis is rejected. The control group spends less total time on average than the test group.
 
