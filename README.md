@@ -21,24 +21,29 @@ The goal is to see if the new design leads to a better user experience and highe
 4. Time Spent from Start to Confirm Step (additional KPI): The total duration of a process sequence from start to confirm.
 
 ## Hypothesis Testing:
-1. Completion Rate: The new design (Test group) has a higher completion rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test.
+### 1. Completion Rate: 
+The new design (Test group) has a higher completion rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test.
 
-2. Time Spent on Each Step: t-test
+### 2. Time Spent on Each Step: t-test
 
-3. Error Rates: The new design (Test group) has a higher Error rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test with the following hypothesis:
+### 3. Error Rates:
+The new design (Test group) has a higher Error rate compared to the old design (Control group). In order to confirm if this difference is statistically significant, we proceeded with a z-test with the following hypothesis:
 
-H0 = error rate test group <= error rate control group
-H1 = error rate test group > error rate control group
+  H0 = error rate test group <= error rate control group
+  H1 = error rate test group > error rate control group
+
 The null hypothesis is rejected. The error rate in the test group is larger than the control group.
 
-5. Time Spent from Start to Confirm Step (additional KPI): Total time spent from start page to confirm page for one visit_id per client_id. 
+### 4. Time Spent from Start to Confirm Step (additional KPI):
+Total time spent from start page to confirm page for one visit_id per client_id. 
 For each visit_id, we take the earliest 'start' and the last 'confirm'. If a visit has no start or confirm we can ignore them.
 Visits going to a confirm step before a start step will be ignored and considered as errors.
 
 When calculating the total duration, we removed negative values considered as errors and removed outliers using the IQR technique.
 The average total duration for the Control group is slightly higher than the Test group. In order to confirm if this difference is statistically significant, we proceeded with a t-test with the follwing hypothesis:
-H0 = average_total_duration_test_group <= average_total_duration_control_group
-H1 = average_total_duration_test_group > average_total_duration_control_group
+
+  H0 = average_total_duration_test_group <= average_total_duration_control_group
+  H1 = average_total_duration_test_group > average_total_duration_control_group
 
 The null hypothesis is rejected. The control group spends less total time on average than the test group.
 
@@ -49,3 +54,7 @@ Clients were equally divided between the old and new designs. Characteristics li
 
 ### Duration Assessment
 The experiment was done over a short time period, hence, the error rates and completion is high, not specifically because of the new UI being less effective, but because it always takes time to get comfortable with a new interface.
+
+## Additional content
+
+### Tableau link
