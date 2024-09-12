@@ -58,3 +58,4 @@ The experiment was done over a short time period, hence, the error rates and com
 ## Additional content
 
 ### Tableau link
+https://public.tableau.com/app/profile/lucie.stenger/viz/Ironhack-W5-6/KPIs?publish=yes 
