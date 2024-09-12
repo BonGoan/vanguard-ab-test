@@ -41,3 +41,11 @@ H0 = average_total_duration_test_group <= average_total_duration_control_group
 H1 = average_total_duration_test_group > average_total_duration_control_group
 
 The null hypothesis is rejected. The control group spends less total time on average than the test group.
+
+## Experiment Evaluation
+
+### Design Effectiveness
+Clients were equally divided between the old and new designs. Characteristics like gender, tenure, accounts balance, online logs and calls were proportionally represented in both experiment groups.
+
+### Duration Assessment
+The experiment was done over a short time period, hence, the error rates and completion is high, not specifically because of the new UI being less effective, but because it always takes time to get comfortable with a new interface.
