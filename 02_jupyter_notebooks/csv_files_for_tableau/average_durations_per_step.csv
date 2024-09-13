@@ -1,0 +1,6 @@
+Process Step,Average Duration Test Group,Average Duration Control Group
+confirm,2.054426,1.262612
+start,0.881014,1.032584
+step 1,1.054969,0.852407
+step 2,1.604868,1.650102
+step 3,1.66318,1.520628
